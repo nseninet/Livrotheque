@@ -1,0 +1,19 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.v2.livrotheque.LivresListActivity">
+<!--
+Pour un smartphone, l'activité main contient un seul fragment
+La classe du fragment est "esi.dz.myapplication.ListFragment"
+Ce fragment est fixe car il s'affiche tout le temps
+-->
+    <fragment
+        android:name="com.v2.livrotheque.LivresListFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment1"/>
+
+</RelativeLayout>

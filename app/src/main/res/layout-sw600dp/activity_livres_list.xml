@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--
+    Pour une tablette, l'activité main contient deux seul fragment
+    Le premier est la liste des pays
+    Le deuxième est un fragment dynamique, i.e. l'affichage du fragment se fait quand
+        l'utilisateur clique sur un élément de la liste
+    -->
+
+    <fragment
+        android:name="com.v2.livrotheque.LivresListFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment1"
+        />
+    <!--
+    FrameLayout ne représente pas un fragment.
+    c'est un layout utilisé pour spécifier un bloc.
+    Ce frameLyout sera remplacé par le fragment détail  quand l'utilisateur clique sur un élément de la liste
+    -->
+    <FrameLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment2"
+        />
+
+
+</LinearLayout>

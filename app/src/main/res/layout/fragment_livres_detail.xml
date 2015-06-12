@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.v2.livrotheque.NotifyingScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?android:attr/textAppearanceLarge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scroller"
+    tools:context="com.v2.livrotheque.LivresDetailsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:descendantFocusability="beforeDescendants"
+        android:background="@color/ColorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/thumbD"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:scaleType="centerCrop"
+            android:layout_margin="0dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:id="@+id/grad"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sub_gradient"
+            android:layout_alignBottom="@+id/thumbD"/>
+
+
+        <TextView
+            android:id="@+id/titleD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/grad"
+            android:paddingLeft="5dp"
+            android:paddingTop="15dp"
+
+            android:textIsSelectable="false"
+            android:textColor="@color/text"
+            android:textSize="@dimen/titleD"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:id="@+id/authorD"
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleD"
+            android:layout_marginTop="1dp"
+
+            android:textColor="@color/text"
+            android:textStyle="italic"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/ratingD" />
+
+        <!-- Genre -->
+        <TextView
+            android:id="@+id/catD"
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/authorD"
+            android:layout_marginTop="1dp"
+
+            android:textIsSelectable="false"
+            android:textColor="@color/text"
+            android:textSize="@dimen/genreD" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/st"
+            android:layout_alignParentLeft="true"
+            android:text="@string/sum_book"
+            android:textIsSelectable="false"
+            android:textColor="@color/text"
+            android:textStyle="bold"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:layout_below="@+id/catD"
+            android:paddingRight="16dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textIsSelectable="false"
+            android:id="@+id/sumD"
+            android:paddingLeft="16dp"
+            android:textColor="@color/text"
+
+            android:paddingRight="16dp"
+            android:layout_below="@id/st"/>
+
+    </RelativeLayout>
+</com.v2.livrotheque.NotifyingScrollView>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Livrotheque</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_detail">Détails livre</string>
+    <string name="title_activity_results_search">Recherche</string>
+    <string name="title_activity_main">Liste des livres</string>
+    <string name="search_hint">Entrez le nom du livre</string>
+    <string name="action_search">Recherche</string>
+    <string name="sum_book">Résumé</string>
+    <string name="livre">Livre : </string>
+    <string name="categorie">Categorie : </string>
+    <string name="message">Le livre recherché n\'existe pas</string>
+
+
+
+</resources>

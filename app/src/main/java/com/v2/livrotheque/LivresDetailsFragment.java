@@ -45,6 +45,8 @@ public class LivresDetailsFragment extends Fragment {
             TextView tv_auteur = (TextView) getActivity().findViewById(R.id.authorD);
             TextView tv_categorie = (TextView) getActivity().findViewById(R.id.catD);
             TextView tv_resume = (TextView) getActivity().findViewById(R.id.sumD);
+          //TextView tv_dateParution = (TextView) activity.findViewById(R.id.dateD);
+            // rajouter la date de parution
 
 
             // On affiche les détails

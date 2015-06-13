@@ -42,13 +42,13 @@ public class DataBaseHandler {
             while (rs.next()) {
                 Livre livre = new Livre();
 
-                livre.set_id(rs.getInt(0));
-                livre.set_titre(rs.getString(1));
-                livre.set_auteur(rs.getString(2));
-                livre.set_resume(rs.getString(3));
-                livre.set_dateParution(rs.getString(4));
-                livre.set_categorie(rs.getString(5));
-                livre.set_cover(rs.getBytes(6));
+                livre.set_id(rs.getInt(1));
+                livre.set_titre(rs.getString(2));
+                livre.set_auteur(rs.getString(3));
+                livre.set_resume(rs.getString(4));
+                livre.set_dateParution(rs.getString(5));
+                livre.set_categorie(rs.getString(6));
+                livre.set_cover(rs.getBytes(7));
 
                 list.add(livre);
             }
@@ -71,12 +71,13 @@ public class DataBaseHandler {
             ResultSet rs = pst.executeQuery();
             if (rs.first()) {
                 livre = new Livre();
-                livre.set_titre(rs.getString(1));
-                livre.set_auteur(rs.getString(2));
-                livre.set_resume(rs.getString(3));
-                livre.set_dateParution(rs.getString(4));
-                livre.set_categorie(rs.getString(5));
-                livre.set_cover(rs.getBytes(6));
+                livre.set_id(rs.getInt(1));
+                livre.set_titre(rs.getString(2));
+                livre.set_auteur(rs.getString(3));
+                livre.set_resume(rs.getString(4));
+                livre.set_dateParution(rs.getString(5));
+                livre.set_categorie(rs.getString(6));
+                livre.set_cover(rs.getBytes(7));
             }
             con.close();
         } catch (SQLException e) {

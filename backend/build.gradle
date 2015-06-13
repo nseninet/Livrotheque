@@ -33,4 +33,5 @@ appengine {
     appcfg {
         oauth2 = true
     }
+    httpAddress="0.0.0.0"
 }

@@ -7,7 +7,7 @@
     tools:context="com.v2.livrotheque.LivresListActivity">
 <!--
 Pour un smartphone, l'activité main contient un seul fragment
-La classe du fragment est "esi.dz.myapplication.ListFragment"
+La classe du fragment est "com.v2.livrotheque.LivresListFragment"
 Ce fragment est fixe car il s'affiche tout le temps
 -->
     <fragment

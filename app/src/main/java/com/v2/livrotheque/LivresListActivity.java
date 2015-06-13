@@ -10,13 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.v2.livrotheque.Adapter.TitleNavAdapter;
-import com.v2.livrotheque.Database.DataBaseHandler;
 import com.v2.livrotheque.Model.SpinnerNavItem;
 
 import java.util.ArrayList;
 
 
-public class LivresListActivity extends ActionBarActivity{
+public class LivresListActivity extends ActionBarActivity
+        implements ActionBar.OnNavigationListener{
 
     // action bar
     private ActionBar actionBar;
@@ -33,7 +33,7 @@ public class LivresListActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_livres_list);
 
-      /*  actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         // Hide the action bar title
         actionBar.setDisplayShowTitleEnabled(false);
@@ -53,7 +53,7 @@ public class LivresListActivity extends ActionBarActivity{
         adapter = new TitleNavAdapter(getApplicationContext(), navSpinner);
 
         // assigning the spinner navigation
-        actionBar.setListNavigationCallbacks(adapter, this);*/
+        actionBar.setListNavigationCallbacks(adapter,this);
     }
 
 
@@ -85,8 +85,10 @@ public class LivresListActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
-  /*  @Override
+
+
+   @Override
     public boolean onNavigationItemSelected(int i, long l) {
         return false;
-    }*/
+    }
 }

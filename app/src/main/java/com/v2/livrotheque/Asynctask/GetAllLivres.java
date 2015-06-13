@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
 
+
+import com.v2.livrotheque.Adapter.LivresListAdapter;
 import com.v2.livrotheque.Model.Livre;
+import com.v2.livrotheque.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -36,13 +37,17 @@ public class GetAllLivres extends AsyncTask<Void,Integer,String> {
 
     @Override
     protected void onPreExecute() {
-        pd = ProgressDialog.show(context, "title", "In Progress...",true);
+        pd = ProgressDialog.show(context, "title", "Veuillez patienter ...",true);
     }
 
     @Override
     protected String doInBackground(Void... params) {
 
-        //String url ="http://10.0.2.2:8080/getallflights";
+        /*
+        //test au cas où on utilise un émulateur
+        String url ="http://10.0.2.2:8080/getallflights";
+        */
+
         String url ="http://192.168.43.143:8080/getalllivres";
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
@@ -68,17 +73,17 @@ public class GetAllLivres extends AsyncTask<Void,Integer,String> {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 Livre livre = new Livre();
-                livre.set_titre(jsonObject.getString("titre"));
-                livre.set_auteur(jsonObject.getString("dep_city"));
-                livre.set_resume(jsonObject.getString("arr_city"));
-                livre.set_dateParution(jsonObject.getString("depart_time"));
-                livre.set_categorie(jsonObject.getString("arr_time"));
-               // livre.set_cover(jsonArray.get);
+                livre.set_titre(jsonObject.getString("_titre"));
+                livre.set_auteur(jsonObject.getString("_auteur"));
+                livre.set_resume(jsonObject.getString("_resume"));
+                livre.set_dateParution(jsonObject.getString("_dateParation"));
+                livre.set_categorie(jsonObject.getString("_categorie"));
+                livre.set_cover((byte[])jsonObject.get("_cover"));
                 list.add(livre);
             }
 
-          //  ListView listView = (ListView) ((Activity)context).findViewById(R.id.listFlights);
-          //  listView.setAdapter(new FlightsAdapter(context,R.layout.list_layout,list));
+          ListView listView = (ListView) ((Activity)context).findViewById(R.id.listView);
+          listView.setAdapter(new LivresListAdapter((Activity)context, list));
         }
 
         catch (JSONException e) {

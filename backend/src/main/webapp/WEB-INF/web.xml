@@ -8,6 +8,25 @@
         <servlet-name>MyServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LivresServlet</servlet-name>
+        <servlet-class>Servlet.GetLivresServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LivresServlet</servlet-name>
+        <url-pattern>/getAllLivres</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LivreByTitreServlet</servlet-name>
+        <servlet-class>Servlet.GetLivreByTitre</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LivreByTitreServlet</servlet-name>
+        <url-pattern>/getLivreByTitre</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

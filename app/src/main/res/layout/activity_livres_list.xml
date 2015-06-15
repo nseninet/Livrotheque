@@ -14,6 +14,7 @@ Ce fragment est fixe car il s'affiche tout le temps
         android:name="com.v2.livrotheque.LivresListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment1"/>
+        android:id="@+id/fragment1"
+        tools:layout="@layout/livres_list" />
 
 </RelativeLayout>

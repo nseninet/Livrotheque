@@ -27,11 +27,11 @@ import java.util.List;
 
 
 
-public class GetAllLivres extends AsyncTask<Void,Integer,String> {
+public class GetAllLivresTask extends AsyncTask<Void,Integer,String> {
     private Context context;
     ProgressDialog pd = null;
 
-    public GetAllLivres(Context context) {
+    public GetAllLivresTask(Context context) {
         this.context = context;
     }
 
@@ -48,7 +48,8 @@ public class GetAllLivres extends AsyncTask<Void,Integer,String> {
         String url ="http://10.0.2.2:8080/getallflights";
         */
 
-        String url ="http://192.168.43.143:8080/getalllivres";
+        // lorsque le vaio se connecte à mon tel : 192.168.43.234
+        String url ="http://192.168.43.234:8080/getalllivres";
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
         String result ="";

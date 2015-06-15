@@ -1,10 +1,11 @@
 package com.v2.livrotheque;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,21 @@ import java.util.List;
 public class LivresListFragment extends Fragment {
 
     ListView listView;
-    List<Livre> livresList = new ArrayList<Livre>();
+    LivresListAdapter livresListAdapter ;
     DataBaseHandler dataBaseHandler;
+    int lastSpinner ;
+
+
+    List<Livre> livresList = new ArrayList<Livre>();
+
+    // livres par categories
+    List<Livre> livresListProg = new ArrayList<Livre>();
+    List<Livre> livresListRes = new ArrayList<Livre>();
+    List<Livre> livresListSec = new ArrayList<Livre>();
+    List<Livre> livresListBDD = new ArrayList<Livre>();
+    List<Livre> livresListOS = new ArrayList<Livre>();
+
+
 
     /* La spécification du layout du fragment se fait au niveau de la méthode OnCreateView
      OnCreateView ext exécutée quand le système dessine les élements de l'interface
@@ -37,11 +51,12 @@ public class LivresListFragment extends Fragment {
         un objet view utilisable dans le code source
         Elle a trois paramètres :
         1. le premier est le layout
-        2. le deuxième est le parent( container) de ce layout
+        2. le deuxième est le parent(container) de ce layout
         3. un boolean pour spécifier au système de créer ou non un parent. Toujours le mettre à false
           pour que le système utilise le parent spécifié dans le layout sans créer un autre
          */
-        return inflater.inflate(R.layout.livres_list, container, false);
+        View view = inflater.inflate(R.layout.livres_list, container, false);
+        return view;
     }
 
 
@@ -57,12 +72,29 @@ public class LivresListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        livresList = dataBaseHandler.getAllLivres();
-
-        LivresListAdapter livresListAdapter = new LivresListAdapter(getActivity(), livresList);
 
         listView = (ListView) getActivity().findViewById(R.id.listView);
-        listView.setAdapter(livresListAdapter);
+        livresList = dataBaseHandler.getAllBooks();
+
+
+        livresListProg = dataBaseHandler.getBooksByCategory("Programmation");
+        livresListRes = dataBaseHandler.getBooksByCategory("Réseaux");
+        livresListSec = dataBaseHandler.getBooksByCategory("Sécurité");
+        livresListBDD = dataBaseHandler.getBooksByCategory("Bases de données");
+        livresListOS = dataBaseHandler.getBooksByCategory("Systèmes exploitation");
+
+
+        System.out.println("Liste des truc de Prog :"+livresListProg.size());
+        System.out.println("Liste des truc de Res :"+livresListRes.size());
+        System.out.println("Liste des truc de sec :"+livresListSec.size());
+        System.out.println("Liste des truc de bdd :"+livresListBDD.size());
+        System.out.println("Liste des truc de os :"+livresListOS.size());
+
+       livresListAdapter = new LivresListAdapter(getActivity(),livresList);
+       listView.setAdapter(livresListAdapter);
+       setData(lastSpinner);
+
+
 
 
         // appeler l'évènement onClick de la liste
@@ -110,4 +142,37 @@ public class LivresListFragment extends Fragment {
             }
         });
     }
+
+    public void setData(int i) {
+        switch(i){
+            case 0:
+                livresListAdapter.livres().clear();
+                livresListAdapter.livres().addAll(livresListProg);
+                break;
+            case 1:
+                livresListAdapter.livres().clear();
+                livresListAdapter.livres().addAll(livresListRes);
+                break;
+            case 2:
+                livresListAdapter.livres().clear();
+                livresListAdapter.livres().addAll(livresListSec);
+                break;
+            case 3:
+                livresListAdapter.livres().clear();
+                livresListAdapter.livres().addAll(livresListBDD);
+                break;
+            case 4:
+                livresListAdapter.livres().clear();
+                livresListAdapter.livres().addAll(livresListOS);
+                break;
+           default:
+               livresListAdapter.livres().clear();
+               livresListAdapter.livres().addAll(livresListProg);
+               break;
+        }
+        livresListAdapter.notifyDataSetChanged();
+    }
 }
+
+
+

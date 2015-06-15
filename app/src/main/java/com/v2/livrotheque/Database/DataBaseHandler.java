@@ -135,19 +135,19 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         // categorie : système d'exploitation
         image =BitmapFactory.decodeResource(rs, R.drawable.ic_computer_security);
-        Livre book41 = new Livre("Computer Security", "Dieter Gollmann", abstract41, "2011", "Système d'exploitation", getImageByte(image));
+        Livre book41 = new Livre("Computer Security", "Dieter Gollmann", abstract41, "2011", "Systèmes exploitation", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.ic_computer_security);
-        Livre book42 = new Livre("Computer Security", "Dieter Gollmann", abstract42, "2011", "Système d'exploitation", getImageByte(image));
+        Livre book42 = new Livre("Computer Security", "Dieter Gollmann", abstract42, "2011", "Systèmes exploitation", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.ic_computer_security);
-        Livre book43 = new Livre("Computer Security", "Dieter Gollmann", abstract43, "2011", "Système d'exploitation", getImageByte(image));
+        Livre book43 = new Livre("Computer Security", "Dieter Gollmann", abstract43, "2011", "Systèmes exploitation", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.ic_computer_security);
-        Livre book44 = new Livre("Computer Security", "Dieter Gollmann", abstract44, "2011", "Système d'exploitation", getImageByte(image));
+        Livre book44 = new Livre("Computer Security", "Dieter Gollmann", abstract44, "2011", "Systèmes exploitation", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.ic_computer_security);
-        Livre book45 = new Livre("Computer Security", "Dieter Gollmann", abstract45, "2011", "Système d'exploitation", getImageByte(image));
+        Livre book45 = new Livre("Computer Security", "Dieter Gollmann", abstract45, "2011", "Systèmes exploitation", getImageByte(image));
 
 
 
@@ -258,10 +258,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     /**
      * Recherche d'un livre par categorie
      */
-    public List<Livre> getBookByCategory(String categorie) {
+    public List<Livre> getBooksByCategory(String categorie) {
         ArrayList<Livre> livreList = new ArrayList<Livre>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select * from livre where lower(categorie)=?";
+        String query = "select * from livre where categorie='"+categorie+"'";
         Cursor cursor = db.rawQuery(query,null);
         if(cursor.moveToFirst()) {
             do {
@@ -285,7 +285,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     /*
     Recupère dans une liste l'ensemble des livres
     */
-    public List<Livre> getAllLivres() {
+    public List<Livre> getAllBooks() {
         ArrayList<Livre> livreList = new ArrayList<Livre>();
         SQLiteDatabase db = this.getReadableDatabase();
         String query= "select * from livre ";

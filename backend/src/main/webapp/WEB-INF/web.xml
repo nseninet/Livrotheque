@@ -27,6 +27,25 @@
         <url-pattern>/getLivreByTitre</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LivresByCategorieServlet</servlet-name>
+        <servlet-class>Servlet.GetLivresByCategorie</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LivresByCategorieServlet</servlet-name>
+        <url-pattern>/getLivresByCategorie</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginUserServlet</servlet-name>
+        <servlet-class>Servlet.GetLoginUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginUserServlet</servlet-name>
+        <url-pattern>/getLoginUser</url-pattern>
+    </servlet-mapping>
+
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

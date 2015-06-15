@@ -16,14 +16,15 @@ import android.widget.TextView;
 import com.v2.livrotheque.Model.Livre;
 import com.v2.livrotheque.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LivresListAdapter extends BaseAdapter{
 
-    private Activity activity;
-    private List<Livre> listLivres;
-    private Livre livre;
-    private static LayoutInflater inflater = null;
+    Activity activity;
+    List<Livre> listLivres = new ArrayList<Livre>();
+    Livre livre = new Livre() ;
+    static LayoutInflater inflater = null;
 
 
 
@@ -31,6 +32,16 @@ public class LivresListAdapter extends BaseAdapter{
         activity = a;
         listLivres = l;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public LivresListAdapter(Activity activity) {
+        this.activity = activity;
+        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    // We expose the List so we can modify it from outside
+    public List<Livre> livres() {
+        return this.listLivres;
     }
 
     public int getCount() {
@@ -68,9 +79,6 @@ public class LivresListAdapter extends BaseAdapter{
         imageLivre.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageLivre.setAdjustViewBounds(true);
         imageLivre.setImageBitmap(bitmap);
-
-        System.out.println("depuis adapter : auteur => "+auteurLivre.getText().toString());
-
         return vi;
     }
 }

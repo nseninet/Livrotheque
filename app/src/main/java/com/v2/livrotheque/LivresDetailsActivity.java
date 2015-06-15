@@ -1,9 +1,9 @@
 package com.v2.livrotheque;
 
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,8 +28,9 @@ public class LivresDetailsActivity extends ActionBarActivity {
         bundle.putString("resume", getIntent().getStringExtra("resume"));
         livresDetailsFragment.setArguments(bundle);
 
+
         // on lance le fragment détail et on passe la main à ce fragment pour l'affichage
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment2, livresDetailsFragment).commit();
 

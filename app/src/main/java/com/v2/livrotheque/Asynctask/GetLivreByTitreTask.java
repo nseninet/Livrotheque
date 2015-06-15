@@ -22,12 +22,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 
-public class GetLivreByTitre extends AsyncTask<String,Void,String> {
+public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
 
     private Context context;
     ProgressDialog pd = null;
 
-    public GetLivreByTitre(Context context) {
+    public GetLivreByTitreTask(Context context) {
         this.context = context;
     }
 
@@ -40,11 +40,12 @@ public class GetLivreByTitre extends AsyncTask<String,Void,String> {
     }
 
 
-
     @Override
     protected String doInBackground(String... params) {
         String num = params[0];
-        String url ="http://192.168.43.143:8080/getlivrebytitre?titrelivre="+num;
+
+        // lorsque le vaio se connecte à mon tel : 192.168.43.234
+        String url ="http://192.168.43.234:8080/getlivrebytitre?titrelivre="+num;
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
         String result ="";

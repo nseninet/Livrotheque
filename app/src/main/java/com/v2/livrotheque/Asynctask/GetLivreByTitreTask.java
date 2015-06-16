@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,8 +35,8 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute() {
         pd = new ProgressDialog(context);
-        pd.setTitle("title");
-        pd.setMessage("Veuillez patienter ...");
+        pd.setTitle("Recherche");
+        pd.setMessage("Recherche au niveau du serveur... Veuillez patienter");
         pd.show();
     }
 
@@ -45,13 +46,13 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
         String num = params[0];
 
         // lorsque le vaio se connecte à mon tel : 192.168.43.234
-        String url ="http://192.168.43.234:8080/getlivrebytitre?titrelivre="+num;
+        String url = "http://192.168.43.234:8080/getlivrebytitre?titrelivre=" + num;
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
-        String result ="";
+        String result = "";
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet);
-            result= EntityUtils.toString(httpResponse.getEntity());
+            result = EntityUtils.toString(httpResponse.getEntity());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,26 +67,30 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
             JSONObject jsonObject = new JSONObject(s);
             Activity activity = (Activity) context;
 
-            ImageView iv_cover = (ImageView) activity.findViewById(R.id.thumbD);
-            TextView tv_titre = (TextView) activity.findViewById(R.id.titleD);
-            TextView tv_auteur = (TextView) activity.findViewById(R.id.authorD);
-            TextView tv_categorie = (TextView) activity.findViewById(R.id.catD);
-            TextView tv_resume = (TextView) activity.findViewById(R.id.sumD);
-          //TextView tv_dateParution = (TextView) activity.findViewById(R.id.dateD);
-            //rajouter la date de paration
+            TextView emptyText = (TextView) activity.findViewById(R.id.empty); // title
+            TextView titreLivre = (TextView) activity.findViewById(R.id.title); // title
+            TextView auteurLivre = (TextView) activity.findViewById(R.id.author); // artist name
+            TextView dateParutionLivre = (TextView) activity.findViewById(R.id.releaseYear); // duration
+            ImageView imageLivre = (ImageView) activity.findViewById(R.id.thumbnail); // thumb image
 
+            if (jsonObject != null) {
+                titreLivre.setText(jsonObject.getString("_titre"));
+                auteurLivre.setText(jsonObject.getString("_auteur"));
+                dateParutionLivre.setText(jsonObject.getString("_resume"));
 
-            tv_titre.setText(jsonObject.getString("_titre"));
-            tv_auteur.setText(jsonObject.getString("_auteur"));
-            tv_resume.setText(jsonObject.getString("_resume"));
-          //tv_dateParution.setText(jsonObject.getString("_dateParation"));
-            tv_categorie.setText(jsonObject.getString("_categorie"));
+                Bitmap bitmap = BitmapFactory.decodeByteArray((byte[]) jsonObject.get("_cover"), 0,
+                        ((byte[]) jsonObject.get("_cover")).length);
+                imageLivre.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                imageLivre.setAdjustViewBounds(true);
+                imageLivre.setImageBitmap(bitmap);
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray((byte[])jsonObject.get("_cover"), 0,
-                    ((byte[]) jsonObject.get("_cover")).length);
-            iv_cover.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            iv_cover.setAdjustViewBounds(true);
-            iv_cover.setImageBitmap(bitmap);
+            } else {
+                imageLivre.setVisibility(View.INVISIBLE);
+                titreLivre.setVisibility(View.INVISIBLE);
+                auteurLivre.setVisibility(View.INVISIBLE);
+                dateParutionLivre.setVisibility(View.INVISIBLE);
+                emptyText.setVisibility(View.VISIBLE);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

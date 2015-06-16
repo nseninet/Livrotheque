@@ -2,6 +2,8 @@ package com.v2.livrotheque;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -21,17 +23,29 @@ import java.util.ArrayList;
 public class LivresListActivity extends ActionBarActivity
         implements ActionBar.OnNavigationListener{
 
-    // action bar
+
+    public final static String FAV_PROGRAMMATION = "Programmation";
+    public final static String FAV_RESEAUX = "Réseaux";
+    public final static String FAV_SECURITE = "Sécurité";
+    public final static String FAV_BDD = "Bases de données";
+    public final static String FAV_OS = "Sys. exploitation";
+
+    // Action bar
     private ActionBar actionBar;
 
+    //MenuItem pour les categories favorites (l'étoile)
+    private MenuItem favMenuItem ;
+
     // Title navigation Spinner data
-    //private ArrayList<SpinnerNavItem> navSpinner;
     private String[] dropDownValues = null;
 
-    // Navigation adapter
-    //private TitleNavAdapter adapter;
-    private ArrayAdapter arrayAdapter;
+    // Fragment
     private FragmentManager fm = getSupportFragmentManager();
+
+    //
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
 
 
     @Override
@@ -39,9 +53,12 @@ public class LivresListActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_livres_list);
 
-        actionBar = getSupportActionBar();
+        // shared preferences
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
 
         // Hide the action bar title
+        actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
@@ -53,22 +70,6 @@ public class LivresListActivity extends ActionBarActivity
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         actionBar.setListNavigationCallbacks(arrayAdapter,this);
-
-       /*
-        // Spinner title navigation data
-        navSpinner = new ArrayList<SpinnerNavItem>();
-        navSpinner.add(new SpinnerNavItem("Programmation"));
-        navSpinner.add(new SpinnerNavItem("Réseaux"));
-        navSpinner.add(new SpinnerNavItem("Sécurité"));
-        navSpinner.add(new SpinnerNavItem("Bases de données"));
-        navSpinner.add(new SpinnerNavItem("Systèmes d'exploitation"));
-
-        // title drop down adapter
-        adapter = new TitleNavAdapter(LivresListActivity.this, navSpinner);
-        */
-
-        // assigning the spinner navigation
-
     }
 
 
@@ -76,12 +77,11 @@ public class LivresListActivity extends ActionBarActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        favMenuItem = menu.findItem(R.id.action_favorite);
         return true;
     }
 
@@ -96,6 +96,20 @@ public class LivresListActivity extends ActionBarActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        else if(id == R.id.action_favorite){
+            String var = dropDownValues[actionBar.getSelectedNavigationIndex()];
+
+            if(preferences.getBoolean(var,false) == true){
+                editor.putBoolean(var,false);
+                editor.commit();
+                item.setIcon(R.drawable.ic_action_not_favorite);
+
+            }else{
+                editor.putBoolean(var,true);
+                editor.commit();
+                item.setIcon(R.drawable.ic_action_favorite);
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -105,6 +119,21 @@ public class LivresListActivity extends ActionBarActivity
 
        Toast.makeText(this,dropDownValues[i],Toast.LENGTH_SHORT).show();
        LivresListFragment listFragment = (LivresListFragment)fm.findFragmentById(R.id.fragment1);
+
+       String var = dropDownValues[actionBar.getSelectedNavigationIndex()];
+
+       if(preferences.getBoolean(var,false) == true){
+           editor.putBoolean(var,false);
+           editor.commit();
+           favMenuItem.setIcon(R.drawable.ic_action_not_favorite);
+
+       }else{
+           editor.putBoolean(var,true);
+           editor.commit();
+           favMenuItem.setIcon(R.drawable.ic_action_favorite);
+       }
+
+
        listFragment.lastSpinner = i;
        listFragment.setData(i);
        return false;

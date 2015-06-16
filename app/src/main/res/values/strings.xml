@@ -13,12 +13,13 @@
     <string name="categorie">Categorie : </string>
     <string name="message">Le livre recherché n\'existe pas</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="action_favorite"></string>
 
     <string-array name="dropdown">
         <item>Programmation</item>
         <item>Réseaux</item>
         <item>Sécurité</item>
         <item>Bases de données</item>
-        <item>Sys. d\'exploitation</item>
+        <item>Sys. exploitation</item>
     </string-array>
 </resources>

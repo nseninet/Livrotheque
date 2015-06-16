@@ -98,19 +98,19 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 
         // categorie : réseaux
-        image = BitmapFactory.decodeResource(rs, R.drawable.réseaux1);
+        image = BitmapFactory.decodeResource(rs, R.drawable.reseaux1);
         Livre book21 = new Livre("réseaux", "Carlos maya", abstract21, "2010", "Réseaux", getImageByte(image));
 
-        image = BitmapFactory.decodeResource(rs, R.drawable.réseaux2);
+        image = BitmapFactory.decodeResource(rs, R.drawable.reseaux2);
         Livre book22 = new Livre(" Initiation aux réseaux : cours et exercices", "Guy Pujolle", abstract22, "2009", "Réseaux", getImageByte(image));
 
-        image = BitmapFactory.decodeResource(rs, R.drawable.réseaux3);
+        image = BitmapFactory.decodeResource(rs, R.drawable.reseaux3);
         Livre book23 = new Livre("cisco", "Bouhamra amer", abstract23, "2005", "Réseaux", getImageByte(image));
 
-        image = BitmapFactory.decodeResource(rs, R.drawable.réseaux4);
+        image = BitmapFactory.decodeResource(rs, R.drawable.reseaux4);
         Livre book24 = new Livre("VPN", "Philippe Atelin", abstract24, "2011", "Réseaux", getImageByte(image));
 
-        image = BitmapFactory.decodeResource(rs, R.drawable.réseaux5);
+        image = BitmapFactory.decodeResource(rs, R.drawable.reseaux5);
         Livre book25 = new Livre("Administration réseaux", "guy sartier", abstract25, "2005", "Réseaux", getImageByte(image));
 
 

@@ -12,12 +12,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
-import com.v2.livrotheque.Adapter.TitleNavAdapter;
-import com.v2.livrotheque.Model.SpinnerNavItem;
-
-import java.util.ArrayList;
 
 
 public class LivresListActivity extends ActionBarActivity
@@ -42,7 +37,7 @@ public class LivresListActivity extends ActionBarActivity
     // Fragment
     private FragmentManager fm = getSupportFragmentManager();
 
-    //
+    // Shared preferences
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
@@ -61,7 +56,6 @@ public class LivresListActivity extends ActionBarActivity
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
 
         // Specify a SpinnerAdapter to populate the dropdown list
         dropDownValues = getResources().getStringArray(R.array.dropdown);
@@ -82,7 +76,7 @@ public class LivresListActivity extends ActionBarActivity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         favMenuItem = menu.findItem(R.id.action_favorite);
-        System.out.println("favmenuitem ="+favMenuItem);
+        System.out.println("favmenuitem ="+favMenuItem.toString());
         return true;
     }
 
@@ -99,15 +93,20 @@ public class LivresListActivity extends ActionBarActivity
         }
         else if(id == R.id.action_favorite){
             String var = dropDownValues[actionBar.getSelectedNavigationIndex()];
+            System.out.println("value = "+var+" i = "+actionBar.getSelectedNavigationIndex());
+            System.out.println("sp avant = "+preferences.getBoolean(var,false));
 
-            if(preferences.getBoolean(var,false) == true){
+            if(preferences.getBoolean(var,false)){
+
                 editor.putBoolean(var,false);
                 editor.commit();
+                System.out.println("sp après= "+preferences.getBoolean(var,false));
                 item.setIcon(R.drawable.ic_action_not_favorite);
 
             }else{
                 editor.putBoolean(var,true);
                 editor.commit();
+                System.out.println("sp après= "+preferences.getBoolean(var,false));
                 item.setIcon(R.drawable.ic_action_favorite);
             }
         }
@@ -118,24 +117,18 @@ public class LivresListActivity extends ActionBarActivity
    @Override
     public boolean onNavigationItemSelected(int i, long l) {
 
-       Toast.makeText(this,dropDownValues[i],Toast.LENGTH_SHORT).show();
        LivresListFragment listFragment = (LivresListFragment)fm.findFragmentById(R.id.fragment1);
 
        String var = dropDownValues[i];
-       System.out.println("i =" + i);
+       System.out.println("value = "+var+" i =" + i);
+       System.out.println("sp avant= "+preferences.getBoolean(var,false));
 
-       if(preferences.getBoolean(var,false) == true){
-           editor.putBoolean(var,false);
-           editor.commit();
-           favMenuItem.setIcon(R.drawable.ic_action_not_favorite);
+       if(preferences.getBoolean(var,false)){
+           favMenuItem.setIcon(R.drawable.ic_action_favorite);
 
        }else{
-           editor.putBoolean(var,true);
-           editor.commit();
-           favMenuItem.setIcon(R.drawable.ic_action_favorite);
+           favMenuItem.setIcon(R.drawable.ic_action_not_favorite);
        }
-
-
        listFragment.lastSpinner = i;
        listFragment.setData(i);
        return false;

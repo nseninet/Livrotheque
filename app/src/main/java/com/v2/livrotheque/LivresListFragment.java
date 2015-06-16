@@ -76,25 +76,15 @@ public class LivresListFragment extends Fragment {
         listView = (ListView) getActivity().findViewById(R.id.listView);
         livresList = dataBaseHandler.getAllBooks();
 
-
         livresListProg = dataBaseHandler.getBooksByCategory("Programmation");
         livresListRes = dataBaseHandler.getBooksByCategory("Réseaux");
         livresListSec = dataBaseHandler.getBooksByCategory("Sécurité");
         livresListBDD = dataBaseHandler.getBooksByCategory("Bases de données");
         livresListOS = dataBaseHandler.getBooksByCategory("Systèmes exploitation");
 
-
-        System.out.println("Liste des truc de Prog :"+livresListProg.size());
-        System.out.println("Liste des truc de Res :"+livresListRes.size());
-        System.out.println("Liste des truc de sec :"+livresListSec.size());
-        System.out.println("Liste des truc de bdd :"+livresListBDD.size());
-        System.out.println("Liste des truc de os :"+livresListOS.size());
-
-       livresListAdapter = new LivresListAdapter(getActivity(),livresList);
-       listView.setAdapter(livresListAdapter);
-       setData(lastSpinner);
-
-
+        livresListAdapter = new LivresListAdapter(getActivity(),livresList);
+        listView.setAdapter(livresListAdapter);
+        setData(lastSpinner);
 
 
         // appeler l'évènement onClick de la liste
@@ -137,7 +127,6 @@ public class LivresListFragment extends Fragment {
                     intent.putExtra("categorie", livresList.get(position).get_categorie());
                     intent.putExtra("resume", livresList.get(position).get_resume());
                     startActivity(intent);
-
                 }
             }
         });

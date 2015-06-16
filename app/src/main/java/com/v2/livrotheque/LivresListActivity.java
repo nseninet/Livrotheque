@@ -82,6 +82,7 @@ public class LivresListActivity extends ActionBarActivity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         favMenuItem = menu.findItem(R.id.action_favorite);
+        System.out.println("favmenuitem ="+favMenuItem);
         return true;
     }
 
@@ -120,7 +121,8 @@ public class LivresListActivity extends ActionBarActivity
        Toast.makeText(this,dropDownValues[i],Toast.LENGTH_SHORT).show();
        LivresListFragment listFragment = (LivresListFragment)fm.findFragmentById(R.id.fragment1);
 
-       String var = dropDownValues[actionBar.getSelectedNavigationIndex()];
+       String var = dropDownValues[i];
+       System.out.println("i =" + i);
 
        if(preferences.getBoolean(var,false) == true){
            editor.putBoolean(var,false);

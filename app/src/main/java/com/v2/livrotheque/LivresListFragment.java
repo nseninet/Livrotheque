@@ -79,8 +79,8 @@ public class LivresListFragment extends Fragment {
         livresListProg = dataBaseHandler.getBooksByCategory("Programmation");
         livresListRes = dataBaseHandler.getBooksByCategory("Réseaux");
         livresListSec = dataBaseHandler.getBooksByCategory("Sécurité");
-        livresListBDD = dataBaseHandler.getBooksByCategory("Bases de données");
-        livresListOS = dataBaseHandler.getBooksByCategory("Systèmes exploitation");
+        livresListBDD = dataBaseHandler.getBooksByCategory("BDD");
+        livresListOS = dataBaseHandler.getBooksByCategory("OS");
 
         livresListAdapter = new LivresListAdapter(getActivity(),livresList);
         listView.setAdapter(livresListAdapter);

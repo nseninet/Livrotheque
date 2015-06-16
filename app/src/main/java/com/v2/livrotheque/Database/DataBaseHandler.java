@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.v2.livrotheque.Model.Livre;
 import com.v2.livrotheque.R;
@@ -22,7 +23,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     static final int DB_VERSION = 1;
 
     static final String bookCreation = "create table livre " +
-            "(id integer primary key, titre text, auteur text, resume text,date_parution text, categorie text, cover blob)";
+            "(id integer primary key, titre text, auteur text, resume text,date_parution text, categorie text, cover blob )";
+
+    static final String countCategorieCreation = "create table nombre " +
+            "(categorie text, nbrlivres int)";
 
     // categorie : programmation
     static final String abstract11 ="Are you looking for a deeper understanding of the Java™ programming language so that you can write code that is clearer, more correct, more robust, and more reusable? Look no further! Effective Java™, Second Edition, brings together seventy-eight indispensable programmer’s rules of thumb: working, best-practice solutions for the programming challenges you encounter every day";
@@ -60,7 +64,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     static final String abstract54 ="Haec et huius modi quaedam innumerabilia ultrix facinorum impiorum bonorumque praemiatrix aliquotiens operatur Adrastia atque utinam semper quam vocabulo duplici etiam Nemesim appellamus: ius quoddam sublime numinis efficacis, humanarum mentium opinione lunari circulo superpositum, vel ut definiunt alii, substantialis tutela generali potentia partilibus praesidens fatis, quam theologi veteres fingentes Iustitiae filiam ex abdita quadam aeternitate tradunt omnia despectare terrena.";
     static final String abstract55 ="Haec et huius modi quaedam innumerabilia ultrix facinorum impiorum bonorumque praemiatrix aliquotiens operatur Adrastia atque utinam semper quam vocabulo duplici etiam Nemesim appellamus: ius quoddam sublime numinis efficacis, humanarum mentium opinione lunari circulo superpositum, vel ut definiunt alii, substantialis tutela generali potentia partilibus praesidens fatis, quam theologi veteres fingentes Iustitiae filiam ex abdita quadam aeternitate tradunt omnia despectare terrena.";
 
-
     private Context ctx;
 
 
@@ -73,7 +76,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(bookCreation);
-        System.out.println("DataBase livre créée");
+        db.execSQL(countCategorieCreation);
 
         // get cover image book
         Resources rs = ctx.getResources();
@@ -135,37 +138,37 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         // categorie : système d'exploitation
         image =BitmapFactory.decodeResource(rs, R.drawable.os1);
-        Livre book41 = new Livre("Unix", "Pierre Colin", abstract41, "2011", "Systèmes exploitation", getImageByte(image));
+        Livre book41 = new Livre("Unix", "Pierre Colin", abstract41, "2011", "OS", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.os2);
-        Livre book42 = new Livre("Les systéme d'exploitation", "Samia Bouzefrane", abstract42, "2011", "Systèmes exploitation", getImageByte(image));
+        Livre book42 = new Livre("Les systéme d'exploitation", "Samia Bouzefrane", abstract42, "2011", "OS", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.os3);
-        Livre book43 = new Livre("Windows 7", "Dietrich Morgan", abstract43, "2006", "Systèmes exploitation", getImageByte(image));
+        Livre book43 = new Livre("Windows 7", "Dietrich Morgan", abstract43, "2006", "OS", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.os4);
-        Livre book44 = new Livre("Windows XP", "Constant Benoit", abstract44, "2009", "Systèmes exploitation", getImageByte(image));
+        Livre book44 = new Livre("Windows XP", "Constant Benoit", abstract44, "2009", "OS", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.os5);
-        Livre book45 = new Livre("Ubuntu", "Dieter Gollmann", abstract45, "2012", "Systèmes exploitation", getImageByte(image));
+        Livre book45 = new Livre("Ubuntu", "Dieter Gollmann", abstract45, "2012", "OS", getImageByte(image));
 
 
 
         // categorie : bases de données
         image =BitmapFactory.decodeResource(rs, R.drawable.bdd1);
-        Livre book51 = new Livre("MySQL pour les nules", "mokhtar Hamani", abstract51, "2007", "Bases de données", getImageByte(image));
+        Livre book51 = new Livre("MySQL pour les nules", "mokhtar Hamani", abstract51, "2007", "BDD", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.bdd2);
-        Livre book52 = new Livre("Oracle", "Zin Xao", abstract52, "2013", "Bases de données", getImageByte(image));
+        Livre book52 = new Livre("Oracle", "Zin Xao", abstract52, "2013", "BDD", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.bdd3);
-        Livre book53 = new Livre("SQL Server", "Ogral poustr", abstract53, "2008", "Bases de données", getImageByte(image));
+        Livre book53 = new Livre("SQL Server", "Ogral poustr", abstract53, "2008", "BDD", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.bdd4);
-        Livre book54 = new Livre("PostgreSql est ce du Sql ?", "Michel de villier", abstract54, "2013", "Bases de données", getImageByte(image));
+        Livre book54 = new Livre("PostgreSql est ce du Sql ?", "Michel de villier", abstract54, "2013", "BDD", getImageByte(image));
 
         image =BitmapFactory.decodeResource(rs, R.drawable.bdd5);
-        Livre book55 = new Livre("SqlLite ", "Peter Sachs", abstract55, "2015", "Bases de données", getImageByte(image));
+        Livre book55 = new Livre("SqlLite ", "Peter Sachs", abstract55, "2015", "BDD", getImageByte(image));
 
 
         // ajout des livres à la base de données locale
@@ -198,11 +201,18 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         addBook(book53,db);
         addBook(book54,db);
         addBook(book55,db);
+
+        addCountCategorie("Programmation",1);
+        addCountCategorie("Réseaux",1);
+        addCountCategorie("Sécurité",1);
+        addCountCategorie("BDD",1);
+        addCountCategorie("OS",1);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS livre");
+        db.execSQL("DROP TABLE IF EXISTS nombre");
         onCreate(db);
     }
 
@@ -230,6 +240,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.insert("livre", null, contentValues);
     }
 
+
+    public  void addCountCategorie(String categorie, int nb){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("categorie",categorie);
+        contentValues.put("nbrlivres",nb);
+    }
 
     /**
      * Recherche d'un livre par titre
@@ -307,4 +323,30 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
         return livreList;
     }
+
+    /**
+     * récuperer le nombre de livre sur le serveur pour une categorie
+     */
+    public int getCount(String categorie) {
+        int count = 0;
+        String query ="select nbrlivres from nombre where categorie=?";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{categorie});
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        db.close();
+        return count;
+    }
+
+
+    public void updateCount(String categorie, int count){
+        ContentValues newValues = new ContentValues();
+        newValues.put("nbrlivres", count);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.d("nombre", categorie);
+        int s = db.update("nombre", newValues, "categorie = ?", new String[]{categorie});
+
+    }
+
 }

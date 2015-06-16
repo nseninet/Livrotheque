@@ -45,6 +45,15 @@
         <url-pattern>/getLoginUser</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>NbLivresCategorieServlet</servlet-name>
+        <servlet-class>Servlet.GetNbLivresCategorie</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NbLivresCategorieServlet</servlet-name>
+        <url-pattern>/getNbLivresCategorie</url-pattern>
+    </servlet-mapping>
+
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

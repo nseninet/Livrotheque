@@ -136,9 +136,30 @@ public class DataBaseHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return user;
     }
+
+
+    public int getNbLivresCategorie(String categorie) {
+        String query = "select count(*) from livre where categorie=?";
+        Connection con = connecter();
+        int count = -1;
+        try {
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, categorie);
+            ResultSet rs = pst.executeQuery();
+            if (rs.first()) {
+                count = rs.getInt(1);
+                System.out.println("count ="+count+" categorie ="+categorie);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+
 
 
 }

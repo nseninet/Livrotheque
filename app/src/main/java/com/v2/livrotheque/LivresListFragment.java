@@ -68,7 +68,7 @@ public class LivresListFragment extends Fragment {
 
     /**
      *  OnStart: le Fragment a chargé l'interface et l'activité est créée
-    */
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -154,14 +154,11 @@ public class LivresListFragment extends Fragment {
                 livresListAdapter.livres().clear();
                 livresListAdapter.livres().addAll(livresListOS);
                 break;
-           default:
-               livresListAdapter.livres().clear();
-               livresListAdapter.livres().addAll(livresListProg);
-               break;
+            default:
+                livresListAdapter.livres().clear();
+                livresListAdapter.livres().addAll(livresListProg);
+                break;
         }
         livresListAdapter.notifyDataSetChanged();
     }
 }
-
-
-

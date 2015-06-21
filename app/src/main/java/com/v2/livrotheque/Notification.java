@@ -22,7 +22,6 @@ import java.util.concurrent.ExecutionException;
 public class Notification extends BroadcastReceiver {
 
 
-
     public void onReceive(Context context, Intent intent) {
 
         int count = -1;
@@ -65,17 +64,13 @@ public class Notification extends BroadcastReceiver {
     }
 
     private void notification(Context context,ArrayList<String> categories) {
-        // Intent intent = new Intent("dz.esi.intent.notification");
-        // PendingIntent pendingIntent= PendingIntent.getActivity(this,0,intent,0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        //long[] pattern = {500,500,500,1000};
-        //builder.setVibrate(pattern);
         Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(alarm);
 
         builder.setSmallIcon(R.drawable.ic_launcher);
-        builder.setContentTitle("Livrothèque : nouveautés");
-        String query = "De nouveaux livres sont disponibles dans les catégories : ";
+        builder.setContentTitle("Livrothèque : nouveauté(s) dans catégorie(s)");
+        String query = "";
         for (int i=0; i<categories.size(); i++){
             query += categories.get(i);
             if (i!=categories.size()-1) query += ", ";

@@ -228,8 +228,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
      * Ajout d'un livre à la base de données
      */
     public void addBook (Livre livre,SQLiteDatabase db) {
-        System.out.println("depuis database = ajout livre");
-
         ContentValues contentValues = new ContentValues();
         contentValues.put("titre",livre.get_titre());
         contentValues.put("auteur",livre.get_auteur());

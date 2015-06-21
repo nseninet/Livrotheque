@@ -61,9 +61,9 @@ public class LivresListActivity extends ActionBarActivity
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
 
-        calendar.set(Calendar.HOUR_OF_DAY,13);
-        calendar.set(Calendar.MINUTE, 6);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),1000*3600, pendingIntent);
+        calendar.set(Calendar.HOUR_OF_DAY,9);
+        calendar.set(Calendar.MINUTE, 57);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),1000*50, pendingIntent);
 
         // Hide the action bar title
         actionBar = getSupportActionBar();
@@ -101,7 +101,10 @@ public class LivresListActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logOut) {
+            Intent intent= new Intent(this,LoginActivity.class);
+            finish();
+            startActivity(intent);
             return true;
         }
         else if(id == R.id.action_favorite){
@@ -127,23 +130,23 @@ public class LivresListActivity extends ActionBarActivity
     }
 
 
-   @Override
+    @Override
     public boolean onNavigationItemSelected(int i, long l) {
 
-       LivresListFragment listFragment = (LivresListFragment)fm.findFragmentById(R.id.fragment1);
+        LivresListFragment listFragment = (LivresListFragment)fm.findFragmentById(R.id.fragment1);
 
-       String var = dropDownValues[i];
-       System.out.println("value = "+var+" i =" + i);
-       System.out.println("sp avant= "+preferences.getBoolean(var,false));
+        String var = dropDownValues[i];
+        System.out.println("value = "+var+" i =" + i);
+        System.out.println("sp avant= "+preferences.getBoolean(var,false));
 
-       if(preferences.getBoolean(var,false)){
-           favMenuItem.setIcon(R.drawable.ic_action_favorite);
+        if(preferences.getBoolean(var,false)){
+            favMenuItem.setIcon(R.drawable.ic_action_favorite);
 
-       }else{
-           favMenuItem.setIcon(R.drawable.ic_action_not_favorite);
-       }
-       listFragment.lastSpinner = i;
-       listFragment.setData(i);
-       return false;
+        }else{
+            favMenuItem.setIcon(R.drawable.ic_action_not_favorite);
+        }
+        listFragment.lastSpinner = i;
+        listFragment.setData(i);
+        return false;
     }
 }

@@ -28,7 +28,7 @@ public class GetCountLivresTask extends AsyncTask<String,Void,Integer> {
     protected Integer doInBackground(String... params) {
 
         String categorie = params[0];
-        String url ="http://192.168.43.234:8080/getNbLivresCategorie?categorie="+categorie;
+        String url ="http://192.168.43.253:8080/getNbLivresCategorie?categorie="+categorie;
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
         String result = null;

@@ -52,7 +52,8 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
         String num = params[0];
 
         // lorsque le vaio se connecte à mon tel : 192.168.43.234
-        String url = "http://192.168.43.234:8080/getLivreByTitre?titrelivre=" + num;
+
+        String url = "http://192.168.43.253:8080/getLivreByTitre?titrelivre=" + num;
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
         String result = "";

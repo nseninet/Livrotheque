@@ -50,7 +50,7 @@ public class GetLoginUserTask extends AsyncTask<String,Void,String> {
         String password = params[1];
 
         // lorsque le vaio se connecte à mon tel : 192.168.43.234
-        String url ="http://192.168.43.234:8080/getLoginUser?username="+username+"&password="+password;
+        String url ="http://192.168.43.253:8080/getLoginUser?username="+username+"&password="+password;
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);

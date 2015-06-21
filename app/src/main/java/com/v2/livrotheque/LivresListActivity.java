@@ -63,7 +63,7 @@ public class LivresListActivity extends ActionBarActivity
 
         calendar.set(Calendar.HOUR_OF_DAY,13);
         calendar.set(Calendar.MINUTE, 6);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),1000*5, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),1000*3600, pendingIntent);
 
         // Hide the action bar title
         actionBar = getSupportActionBar();

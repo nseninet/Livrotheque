@@ -20,13 +20,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
@@ -52,7 +50,6 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
         String num = params[0];
 
         // lorsque le vaio se connecte à mon tel : 192.168.43.234
-
         String url = "http://192.168.43.253:8080/getLivreByTitre?titrelivre=" + num;
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
@@ -70,9 +67,7 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String s) {
         pd.cancel();
-        System.out.println("s = "+s);
-        try {
-            JSONObject jsonObject = new JSONObject(s);
+        System.out.println("s = " + s);
             Activity activity = (Activity) context;
 
             TextView emptyText = (TextView) activity.findViewById(R.id.empty); // title
@@ -82,19 +77,9 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
             ImageView imageLivre = (ImageView) activity.findViewById(R.id.thumbnail); // thumb image
 
             if (s != null) {
-                Type type = new TypeToken<Livre>(){}.getType();
+                Type type = new TypeToken<Livre>() {
+                }.getType();
                 Livre livre = new Gson().fromJson(s, type);
-
-              /*  titreLivre.setText(jsonObject.getString("_titre"));
-                auteurLivre.setText(jsonObject.getString("_auteur"));
-                dateParutionLivre.setText(jsonObject.getString("_resume"));
-
-                Bitmap bitmap = BitmapFactory.decodeByteArray((byte[]) jsonObject.get("_cover"), 0,
-                        ((byte[]) jsonObject.get("_cover")).length);
-                imageLivre.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                imageLivre.setAdjustViewBounds(true);
-                imageLivre.setImageBitmap(bitmap);
-                */
 
                 titreLivre.setText(livre.get_titre());
                 auteurLivre.setText(livre.get_auteur());
@@ -114,9 +99,5 @@ public class GetLivreByTitreTask extends AsyncTask<String,Void,String> {
                 dateParutionLivre.setVisibility(View.INVISIBLE);
                 emptyText.setVisibility(View.VISIBLE);
             }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
